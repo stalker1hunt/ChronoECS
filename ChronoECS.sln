@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F973ACBF-338C-4978-BC51-E505F14BF171}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChronoECS.Core", "ChronoECS.Core\ChronoECS.Core.csproj", "{73573F89-1859-4E0F-A146-6ACD130A7CBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{765BD265-8C42-4ECF-8105-BD0B6B1825E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChronoECS.Tests", "ChronoECS.Tests\ChronoECS.Tests.csproj", "{B03CCAC3-146A-4CB6-97E9-8816D805EA14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73573F89-1859-4E0F-A146-6ACD130A7CBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73573F89-1859-4E0F-A146-6ACD130A7CBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73573F89-1859-4E0F-A146-6ACD130A7CBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73573F89-1859-4E0F-A146-6ACD130A7CBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B03CCAC3-146A-4CB6-97E9-8816D805EA14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B03CCAC3-146A-4CB6-97E9-8816D805EA14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B03CCAC3-146A-4CB6-97E9-8816D805EA14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B03CCAC3-146A-4CB6-97E9-8816D805EA14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{73573F89-1859-4E0F-A146-6ACD130A7CBC} = {F973ACBF-338C-4978-BC51-E505F14BF171}
+		{B03CCAC3-146A-4CB6-97E9-8816D805EA14} = {765BD265-8C42-4ECF-8105-BD0B6B1825E3}
+	EndGlobalSection
+EndGlobal
