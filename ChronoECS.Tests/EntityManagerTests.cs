@@ -41,5 +41,15 @@ namespace ChronoECS.Tests
             Assert.IsFalse(mgr.IsAlive(e1));
             Assert.IsTrue(mgr.IsAlive(e2));
         }
+        
+        [TestMethod]
+        public void Add_And_TryGetValue_Works()
+        {
+            var set = new SparseSet<float>();
+            set.Add(5, 3.14f);
+            Assert.IsTrue(set.TryGetValue(5, out var value));
+            Assert.AreEqual(3.14f, value);
+            Assert.AreEqual(1, set.Count);
+        }
     }
 }
