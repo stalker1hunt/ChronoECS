@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ChronoECS.Core
 {
@@ -54,6 +55,16 @@ namespace ChronoECS.Core
             // Bump generation so old handles become invalid.
             _generations[e.Index]++;
             _freeIndices.Enqueue(e.Index);
+        }
+        
+        /// <summary>
+        /// Returns the current generation for a given index.
+        /// </summary>
+        public int GetGeneration(int index)
+        {
+            if (index < 0 || index >= _generations.Count)
+                throw new IndexOutOfRangeException($"Invalid entity index: {index}");
+            return _generations[index];
         }
     }
 }

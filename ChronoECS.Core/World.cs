@@ -34,5 +34,13 @@ namespace ChronoECS.Core
                 return (SparseSet<T>)inst;
             throw new InvalidOperationException($"Storage for component {typeof(T)} is not registered.");
         }
+        
+        /// <summary>
+        /// Creates a query returning all entities that have both T1 and T2.
+        /// </summary>
+        public EntityQuery<T1, T2> Query<T1, T2>()
+            where T1 : struct
+            where T2 : struct
+            => new EntityQuery<T1, T2>(this);
     }
 }

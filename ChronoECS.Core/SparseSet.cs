@@ -107,6 +107,17 @@ namespace ChronoECS.Core
             for (int i = 0; i < _count; i++)
                 yield return (_dense[i], _data[i]);
         }
+        
+        /// <summary>
+        /// Enumerates all (entityIndex, component) pairs currently stored.
+        /// </summary>
+        public IEnumerable<(int entity, T component)> GetAll()
+        {
+            for (int i = 0; i < _count; i++)
+            {
+                yield return (_dense[i], _data[i]);
+            }
+        }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
