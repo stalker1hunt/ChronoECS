@@ -21,7 +21,11 @@ namespace ChronoECS.Core
         /// </summary>
         public void RegisterStorage<T>() where T : struct
         {
-            _storages[typeof(T)] = new SparseSet<T>();
+            var key = typeof(T);
+            if (!_storages.ContainsKey(key))
+            {
+                _storages[key] = new SparseSet<T>();
+            }
         }
 
         /// <summary>

@@ -25,9 +25,14 @@ namespace ChronoECS.Core
         /// </summary>
         public void Add(int entity, T component)
         {
-            EnsureCapacity(entity);
+            // Забезпечуємо, що масиви достатньої довжини
+            if (entity >= _sparse.Length)
+            {
+                int newSize = Math.Max(entity + 1, _sparse.Length * 2);
+                Array.Resize(ref _sparse, newSize);
+            }
 
-            // if entity is already present, just replace
+            // Якщо існує, оновлюємо
             int idx = _sparse[entity];
             if (idx < _count && _dense[idx] == entity)
             {
@@ -35,12 +40,20 @@ namespace ChronoECS.Core
                 return;
             }
 
-            // new insertion: append at end
-            _sparse[entity] = _count;
-            _dense[_count]  = entity;
-            _data[_count]   = component;
-            _count++;
+            // Інакше вставляємо новий
+            if (_count == _dense.Length)
+            {
+                int newSize = Math.Max(4, _count * 2);
+                Array.Resize(ref _dense,  newSize);
+                Array.Resize(ref _data,   newSize);
+            }
+
+            idx = _count++;
+            _sparse[entity] = idx;
+            _dense[idx] = entity;
+            _data[idx]  = component;
         }
+
 
         /// <summary>
         /// Removes the component for the given entity, if present.
@@ -72,17 +85,14 @@ namespace ChronoECS.Core
         public bool TryGetValue(int entity, out T component)
         {
             component = default;
-
-            if (entity < 0 || entity >= _sparse.Length)
+            if (entity < 0 || entity >= _sparse.Length) 
                 return false;
-
             int idx = _sparse[entity];
             if (idx < _count && _dense[idx] == entity)
             {
                 component = _data[idx];
                 return true;
             }
-
             return false;
         }
 
