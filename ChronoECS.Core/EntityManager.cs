@@ -8,6 +8,11 @@ namespace ChronoECS.Core
     /// </summary>
     public class EntityManager
     {
+        /// <summary>
+        /// Total number of ever‐allocated entity slots (including dead ones).
+        /// </summary>
+        public int Count => _generations.Count;
+
         // Tracks the current generation for each index.
         private readonly List<int> _generations = new();
 

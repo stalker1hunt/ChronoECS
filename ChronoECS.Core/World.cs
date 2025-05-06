@@ -14,30 +14,31 @@ namespace ChronoECS.Core
         public EntityManager EntityMgr { get; } = new();
 
         // map from component Type to its storage instance
-        private readonly Dictionary<Type, object> _storages = new();
+        private readonly Dictionary<Type, object>    _storages       = new();
+        private readonly Dictionary<Type, IStorage> _filterStorages = new();
 
-        /// <summary>
-        /// Registers a storage for component type T.
-        /// </summary>
+        /// <summary> Register both generic storage and its IStorage view. </summary>
         public void RegisterStorage<T>() where T : struct
         {
-            var key = typeof(T);
-            if (!_storages.ContainsKey(key))
-            {
-                _storages[key] = new SparseSet<T>();
-            }
+            var t = typeof(T);
+            if (_storages.ContainsKey(t)) return;
+
+            var ss = new SparseSet<T>();
+            _storages[t]        = ss;
+            _filterStorages[t]  = ss;
         }
 
-        /// <summary>
-        /// Retrieves the storage for component type T.
-        /// Throws if not registered.
-        /// </summary>
+        /// <summary> Get generic storage for reading/writing component data. </summary>
         public SparseSet<T> GetStorage<T>() where T : struct
         {
             if (_storages.TryGetValue(typeof(T), out var inst))
                 return (SparseSet<T>)inst;
-            throw new InvalidOperationException($"Storage for component {typeof(T)} is not registered.");
+            throw new InvalidOperationException($"No storage for {typeof(T)}");
         }
+        
+        /// <summary> Non‐generic access for filters. </summary>
+        internal IStorage GetFilterStorage(Type t)
+            => _filterStorages[t];
         
         /// <summary>
         /// Creates a query returning all entities that have both T1 and T2.

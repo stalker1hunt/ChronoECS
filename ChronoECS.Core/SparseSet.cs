@@ -9,7 +9,7 @@ namespace ChronoECS.Core
     /// A sparse set implementation for fast lookup and iteration
     /// of components of type T by entity index.
     /// </summary>
-    public class SparseSet<T> : IEnumerable<(int Entity, T Component)>
+    public class SparseSet<T> : IStorage, IEnumerable<(int Entity, T Component)>
         where T : struct
     {
         private int[] _sparse = Array.Empty<int>();
@@ -19,6 +19,17 @@ namespace ChronoECS.Core
 
         /// <summary>Gets the number of stored components.</summary>
         public int Count => _count;
+
+        public IEnumerable<int> EntityIndices  {
+            get
+            {
+                for (int i = 0; i < _count; i++)
+                    yield return _dense[i];
+            }
+        }
+
+        public bool Has(int entityIndex)
+            => TryGetValue(entityIndex, out _);
 
         /// <summary>
         /// Adds or replaces the component for the given entity.
